@@ -19,10 +19,12 @@ int main(){
     problema3();
   }
   else if(opcion==4){
-    //problema4();
+    problema4();
   }
   else if(opcion==5){
     cout<<"Saliendo del programa"<<endl;
+    limpiar();
+
   }
   else{
     cout<<"Opcion no valida"<<endl;
