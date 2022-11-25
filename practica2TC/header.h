@@ -63,10 +63,41 @@ typedef unordered_multiset<string> cadena_validar;
 const double PI = acos(-1.0);
 
 void menu(); 
+
+
+
+
+//AUTOMATA 1: 
 void problema1();
 bool AFD1(string cadena);
+bool ESTADO_Q0(string cadena);
+bool ESTADO_Q1(string cadena);
+bool ESTADO_Q2(string cadena);
+bool ESTADO_Q3(string cadena);
+bool ESTADO_Q4(string cadena);
+bool ESTADO_Q5(string cadena);
+bool ESTADO_Q6(string cadena);
+bool ESTADO_Q7(string cadena);
 
-
+//AUTOMATA 2:
 void problema2();
+bool AFD2(string cadena);
+bool ESTADO_Q0_2(string cadena);
+bool ESTADO_Q1_2(string cadena);
+bool ESTADO_Q2_2(string cadena);
+bool ESTADO_Q3_2(string cadena);
+bool ESTADO_Q4_2(string cadena);
 
-void prueba(cadena_validar cadena, string c); 
+
+
+
+
+//AUTOMATA 3:
+void problema3();
+bool AFD3(string cadena);
+bool ESTADO_Q0_3(string cadena);
+bool ESTADO_Q1_3(string cadena);
+bool ESTADO_Q2_3(string cadena);
+bool ESTADO_Q3_3(string cadena);
+bool ESTADO_Q4_3(string cadena);
+bool ESTADO_Q5_3(string cadena);
