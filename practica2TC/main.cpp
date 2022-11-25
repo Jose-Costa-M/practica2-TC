@@ -16,7 +16,7 @@ int main(){
     problema2();
   }
   else if(opcion==3){
-    //problema3();
+    problema3();
   }
   else if(opcion==4){
     //problema4();
