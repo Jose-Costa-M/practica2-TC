@@ -19,6 +19,16 @@ unordered_set<string> transicion_c= {"c"};
 unordered_set<string> transicion_d= {"d"};
 set<string> transicion_abcd = {"a","b","c","d"};
 
+//AUTOMATA 4
+set<string> transicion_placa = {"A","B","C","D","E","F","G","H","J","K","L","M","N","P","R","S","T","U","V","W","X","Y","Z"};
+set<string> transicion_guion = {"-"};
+set<string> transicion_placa_CDMX = {"A","B","C","D","E","F","G","H","J","K","R","S","T","U","V","W","X","Y","Z"};
+set<string> transicion_placa_EDO1 = {"M","N"};
+set<string> transicion_placa_EDO2 = {"L"};
+set<string> transicion_placa_EDO3 = {"P"};
+set<string> transicion_placa_EDO4 = {"G","H","J","K","L","M","N","P","R","S","T","U","V","W","X","Y","Z"};
+set<string> transicion_placaEDO5 = {"A","B","C","D","E"};
+
 //recorrido
 unordered_multiset<string> recorrido; 
 vt<string> recorrido2;
@@ -371,7 +381,7 @@ void problema2(){
     recorrido.clear();
     int opcion;
     vt<string> validas ={"00","0101010","0000001010","00100100","010101000",""};
-    vt<string> invalidas ={"01","0101011","0000001011","00100101","010101001","1","0011","01010"}; 
+    vt<string> invalidas ={"01","0101011","0000001011","00100101","010101001","11","0011","01010"}; 
     vt<string> cadenas;
     cout<<"Cadenas validas: "<<endl;
     for(int i=0;i<validas.size();i++){
@@ -628,7 +638,7 @@ void problema3(){
     }
 
     cout<<endl<<endl;
-    cout<<endl<<"Definicion del problema: AFD que valide cadenas con numero de 0 par y sin 1 adyacentes (considerar 0 par)"<<endl;
+    cout<<endl<<"Definicion del problema: AFD que acepte cadena que contengan 2 o más símbolos consecutivos iguales, para el alfabeti {a, b, c, d}"<<endl;
     cout<<"Deseas probar con las cadenas validas e invalidas?"<<endl;
     cout<<"1. Si"<<endl;
     cout<<"2. No"<<endl;
@@ -931,5 +941,487 @@ bool ESTADO_Q5_3(string c){
 }
 
 
+//AUTOMATA 4:
+void problema4(){
+    cout<<"AFD que acepte cadena de placas particulares (Carros normales) del area metropolitana"<<endl;
+ vector<string> validas={"X85-DVZ","NTL-921","H64-FGA-G","LGP-174-F","V89-FXZ"};
+ vector<string> invalidas={"BV0-934","GLP-429","Z41-IXV-Ñ","643-521","A74-VWA-7"};
+ int opcion; 
+
+    vt<string> cadenas;
+    cout<<"Cadenas validas: "<<endl;
+    for(int i=0;i<validas.size();i++){
+        cout<<validas[i]<<endl;
+    }
+    cout<<endl<<endl;
+    cout<<"Cadenas invalidas: "<<endl;
+    for(int i=0;i<invalidas.size();i++){
+        cout<<invalidas[i]<<endl;
+    }
+
+    cout<<endl<<endl;
+    cout<<endl<<"Definicion del problema: AFD que acepte cadena de placas particulares (Carros normales) del area metropolitana"<<endl;
+    cout<<"Deseas probar con las cadenas validas e invalidas?"<<endl;
+    cout<<"1. Si"<<endl;
+    cout<<"2. No"<<endl;
+    cin>>opcion;
+    cout<<endl;
+
+    if(opcion == 1){
+
+    for(int i=0;i<validas.size();i++){
+
+    if(AFD4(validas[i])){
+      cout<<"La cadena "<<i+1<<" "<<validas[i]<<": es valida"<<endl<<endl;
+    }else{
+        cout<<"La cadena "<<i+1<<" "<<validas[i]<<": es invalida"<<endl<<endl;
+    }
+    }
+     
+     cout<<endl<<endl; 
+    for(int i=0;i<invalidas.size();i++){
+
+    if(AFD4(invalidas[i]))
+      cout<<"La cadena "<<i+1<<" "<<invalidas[i]<<": es valida"<<endl<<endl;
+    else
+      cout<<"La cadena "<<i+1<<" "<<invalidas[i]<<": es invalida"<<endl<<endl;
+    
+
+     }
+
+
+    }else{
+      
+      cout<<"Cuantas cadenas deseas validar?: "<<endl;
+      cin>>opcion;
+        for(int i=0;i<opcion;i++){
+            string aux;
+            cout<<"Cadena "<<i+1<<": ";
+            cin>>aux;
+            cadenas.push_back(aux);
+        } 
+        cout<<endl<<endl;
+
+        for(int i=0;i<cadenas.size();i++){
+
+            if(AFD4(cadenas[i]))
+               cout<<"La cadena "<<i+1<<" "<<cadenas[i]<<": es valida"<<endl;
+            else
+                cout<<"La cadena "<<i+1<<" "<<cadenas[i]<<": es invalida"<<endl;
+            
+        }
+        cout<<endl<<endl;
+
+
+    }
+
+   
+ 
+
+}
+
+bool AFD4(string c){
+ recorrido2.clear();
+
+    bool validacion;
+    int n = 0;
+    //Iniciamos en el estado Q0
+    recorrido2.push_back("Q0"); 
+
+    validacion = ESTADO_Q0_4(c); 
+
+    //recorremos los estados
+    cout<<"Recorrido: "; 
+    for(auto i:recorrido2){
+       n++;
+         if(n==recorrido2.size()){
+          cout<<i;
+            }else{
+                cout<<i<<"->";
+            }
+    }
+    cout<<endl;
+     
+    recorrido2.clear(); 
+    return validacion;
+}
+
+bool ESTADO_Q0_4(string c){
+    bool q0_AC = false;
+    string aux;
+    aux = c[0];
+     
+     if(transicion_placa_EDO1.count(aux)){
+        recorrido2.push_back("Q1");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q1_4(c);
+        else
+           return q0_AC;
+     }else if(transicion_placa_CDMX.count(aux)){
+        recorrido2.push_back("Q3");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q3_4(c);
+        else
+           return q0_AC;
+     }else if(transicion_placa_EDO2.count(aux)){
+        recorrido2.push_back("Q4");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q4_4(c);
+        else
+           return q0_AC;
+     }else if(transicion_placa_EDO3.count(aux)){
+        recorrido2.push_back("Q5");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q5_4(c);
+        else
+           return q0_AC;
+        }else{
+            return false;
+        }
+}
+
+bool ESTADO_Q1_4(string c){
+    bool q1_AC = false;
+    string aux;
+    aux = c[0];
+
+    if(transicion_numeros.count(aux)){
+        recorrido2.push_back("Q2");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q2_4(c);
+        else
+           return q1_AC;
+    }else if(transicion_placa.count(aux)){
+        recorrido2.push_back("Q6");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q6_4(c);
+        else
+           return q1_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q2_4(string c){
+   bool q2_ac = false;
+    string aux;
+    aux = c[0];
+
+    if(transicion_numeros.count(aux)){
+        recorrido2.push_back("Q7");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q7_4(c);
+        else
+           return q2_ac;
+    }else{
+        return false;
+    }
+
+}
+
+bool ESTADO_Q3_4(string c){
+    bool q3_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_numeros.count(aux)){
+        recorrido2.push_back("Q2");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q2_4(c);
+        else
+           return q3_AC;
+    }else{
+    return false;
+    }
+
+}
+
+bool ESTADO_Q4_4(string c){
+    bool q4_AC = false;
+    string aux;
+    aux = c[0];
+   if(transicion_numeros.count(aux)){
+        recorrido2.push_back("Q2");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q2_4(c);
+        else
+           return q4_AC;
+
+    }else if(transicion_placa_EDO4.count(aux)){
+        recorrido2.push_back("Q6");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q6_4(c);
+        else
+           return q4_AC;
+    }else{
+        return false;
+    }
+
+}
+
+bool ESTADO_Q5_4(string c){
+    bool q5_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_numeros.count(aux)){
+        recorrido2.push_back("Q2");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q2_4(c);
+        else
+           return q5_AC;
+    }else if(transicion_placaEDO5.count(aux)){
+        recorrido2.push_back("Q6");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q6_4(c);
+        else
+           return q5_AC;
+    }else{
+        return false;
+    }
+
+}
+
+bool ESTADO_Q6_4(string c){
+    bool q6_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_placa.count(aux)){
+        recorrido2.push_back("Q8");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q8_4(c);
+        else
+           return q6_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q7_4(string c){
+    bool q7_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_guion.count(aux)){
+        recorrido2.push_back("Q13");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q13_4(c);
+        else
+           return q7_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q8_4(string c){
+    bool q8_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_guion.count(aux)){
+        recorrido2.push_back("Q9");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q9_4(c);
+        else
+           return q8_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q9_4(string c){
+    bool q9_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_numeros.count(aux)){
+        recorrido2.push_back("Q10");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q10_4(c);
+        else
+           return q9_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q10_4(string c){
+    bool q10_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_numeros.count(aux)){
+        recorrido2.push_back("Q11");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q11_4(c);
+        else
+           return q10_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q11_4(string c){
+    bool q11_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_numeros.count(aux)){
+        recorrido2.push_back("Q12");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q12_4(c);
+        else
+           return !q11_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q12_4(string c){
+    bool q12_AC =true;
+    string aux;
+    aux = c[0];
+
+    if(transicion_guion.count(aux)){
+        recorrido2.push_back("Q17");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q17_4(c);
+        else
+           return false;
+    }else{
+        return false;
+    }
+
+}
+
+bool ESTADO_Q13_4(string c){
+    bool q13_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_placa_CDMX.count(aux)){
+        recorrido2.push_back("Q14");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q14_4(c);
+        else
+           return q13_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q14_4(string c){
+    bool q14_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_placa_CDMX.count(aux)){
+        recorrido2.push_back("Q15");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q15_4(c);
+        else
+           return q14_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q15_4(string c){
+    bool q15_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_placa_CDMX.count(aux)){
+        recorrido2.push_back("Q16");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q16_4(c);
+        else
+           return !q15_AC;
+    }else{
+        return false;
+    }
+}
+
+bool ESTADO_Q16_4(string c){
+    bool q16_AC = true;
+    string aux;
+    aux = c[0];
+    if(transicion_guion.count(aux)){
+        recorrido2.push_back("Q17");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q17_4(c);
+        else
+           return !q16_AC;
+    }else{
+        return false;
+    }   
+}
+
+bool ESTADO_Q17_4(string c){
+    bool q17_AC = false;
+    string aux;
+    aux = c[0];
+    if(transicion_placa_CDMX.count(aux)){
+        recorrido2.push_back("Q18");
+        c.erase(0,1);
+        if(c.size()!=0)
+            return ESTADO_Q18_4(c);
+        else
+           return !q17_AC;
+    }else{
+        return false;
+    }
+
+}
+
+bool ESTADO_Q18_4(string c){
+  if(c.size()==0){
+    return true;
+    }else{
+        return false;
+    }
+}
+
+void limpiar(){
+  transicion_numeros.clear();
+  transicion_signos.clear();
+  transicion_punto.clear();
+  transicion_e.clear();
+
+  transicion_uno.clear();
+  transicion_cero.clear();
+
+  transicion_a.clear();
+  transicion_b.clear();
+  transicion_c.clear();
+  transicion_d.clear();
+  transicion_abcd.clear();    
+
+  transicion_placa.clear();
+  transicion_guion.clear();
+  transicion_placa_CDMX.clear(); 
+  transicion_placa_CDMX.clear();
+  transicion_placa_EDO1.clear();
+  transicion_placa_EDO2.clear();
+  transicion_placa_EDO3.clear();
+  transicion_placa_EDO4.clear();
+  transicion_placaEDO5.clear();
+
+  recorrido.clear();
+  recorrido2.clear();
+}
 
 
