@@ -101,3 +101,32 @@ bool ESTADO_Q2_3(string cadena);
 bool ESTADO_Q3_3(string cadena);
 bool ESTADO_Q4_3(string cadena);
 bool ESTADO_Q5_3(string cadena);
+
+//AUTOMATA 4:
+void problema4();
+bool AFD4(string cadena);
+bool ESTADO_Q0_4(string cadena);
+bool ESTADO_Q1_4(string cadena);
+bool ESTADO_Q2_4(string cadena);
+bool ESTADO_Q3_4(string cadena);
+bool ESTADO_Q4_4(string cadena);
+bool ESTADO_Q5_4(string cadena);
+bool ESTADO_Q6_4(string cadena);
+bool ESTADO_Q7_4(string cadena);
+bool ESTADO_Q8_4(string cadena);
+bool ESTADO_Q9_4(string cadena);
+bool ESTADO_Q10_4(string cadena);
+bool ESTADO_Q11_4(string cadena);
+bool ESTADO_Q12_4(string cadena);
+bool ESTADO_Q13_4(string cadena);
+bool ESTADO_Q14_4(string cadena);
+bool ESTADO_Q15_4(string cadena);
+bool ESTADO_Q16_4(string cadena);
+bool ESTADO_Q17_4(string cadena);
+bool ESTADO_Q18_4(string cadena);
+
+void limpiar();
+
+
+
+
