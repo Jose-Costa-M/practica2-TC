@@ -20,13 +20,13 @@ Automatas Finitos Deterministas - Teoría Computacional
 
 # Compilación
 
-## 1.- Descargar la carpeta 
+ 1.- Descargar la carpeta 
 
-## 2.- Abrir el directorio en una terminal Linux.
+ 2.- Abrir el directorio en una terminal Linux.
 
-## 3.- Ejecutar: g++ main.cpp funciones.cpp -o prac2
+ 3.- Ejecutar: g++ main.cpp funciones.cpp -o prac2
 
-## 4.- Ejecutar: ./prac2
+ 4.- Ejecutar: ./prac2
 
 
 # Recursos
